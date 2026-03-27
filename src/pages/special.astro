@@ -1,0 +1,92 @@
+---
+// ※ファイルの保存場所（階層）に合わせてLayoutのパスを調整してください
+import Layout from '../layouts/Layout.astro';
+import Contact from '../components/Contact.astro';
+---
+
+<Layout title="特設ページ：感染症対策 | 株式会社E-クリエイト">
+    <main class="pt-32 pb-20 bg-surface-alt min-h-screen">
+        <div class="container mx-auto px-4 max-w-4xl">
+            
+            <div class="text-sm text-text-muted mb-8">
+                <a href="/" class="hover:text-accent transition">トップ</a> &rsaquo;
+                <span class="hover:text-accent transition cursor-pointer">特設ページ</span> &rsaquo;
+                <span class="text-primary font-bold">感染症対策</span>
+            </div>
+
+            <div class="text-center mb-12 md:mb-20">
+                <span class="text-accent font-eng tracking-widest text-sm md:text-base font-bold block mb-2 uppercase">Infection Control</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-wider">感染症対策</h1>
+                <div class="w-12 h-1 bg-accent mx-auto"></div>
+            </div>
+
+            <div class="space-y-12 md:space-y-16">
+                
+                <section class="bg-surface p-6 md:p-10 rounded-lg border border-border shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 text-left">
+                    <div class="flex items-start gap-4 md:gap-6 mb-8 md:mb-10">
+                        <div class="w-16 h-16 bg-surface-alt rounded-full flex items-center justify-center text-primary text-2xl border border-border shadow-inner flex-shrink-0">
+                            <i class="fas fa-hands-wash"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-primary mb-2">指先消毒、除菌</h3>
+                            <p class="text-base text-text leading-relaxed">
+                                玄関や居室の入口にアルコール消毒液を設置しています。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-full rounded-lg shadow-sm border border-border overflow-hidden bg-light">
+                        <img src="/assets/special_images/image6.jpg" alt="アルコール消毒液の設置場所" class="w-full h-auto" />
+                    </div>
+                </section>
+
+                <section class="bg-surface p-6 md:p-10 rounded-lg border border-border shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 text-left">
+                    <div class="flex items-start gap-4 md:gap-6 mb-8 md:mb-10">
+                        <div class="w-16 h-16 bg-surface-alt rounded-full flex items-center justify-center text-primary text-2xl border border-border shadow-inner flex-shrink-0">
+                            <i class="fas fa-wind"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-primary mb-2">空間除菌</h3>
+                            <p class="text-base text-text leading-relaxed">
+                                各居室に次亜塩素酸 空間除菌脱臭機を設置しています。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/2 mx-auto rounded-lg shadow-sm border border-border overflow-hidden bg-light">
+                        <img src="/assets/special_images/IMG_0216.jpg" alt="アルコール消毒液の設置場所" class="w-full h-auto" />
+                    </div>
+                </section>
+
+                <section class="bg-surface p-6 md:p-10 rounded-lg border border-border shadow-md transition duration-300 hover:shadow-xl hover:-translate-y-1 text-left">
+                    <div class="flex items-start gap-4 md:gap-6 mb-8 md:mb-10">
+                        <div class="w-16 h-16 bg-surface-alt rounded-full flex items-center justify-center text-primary text-2xl border border-border shadow-inner flex-shrink-0">
+                            <i class="fas fa-people-arrows"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-xl md:text-2xl font-bold text-primary mb-2">飛沫対策</h3>
+                            <p class="text-base text-text leading-relaxed">
+                                個人デスク間を抗菌フィルムで隔離しています。
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="w-full rounded-lg shadow-sm border border-border overflow-hidden bg-light">
+                        <img src="/assets/special_images/EKURI2.jpg" alt="デスクに設置された抗菌フィルムとパネル" class="w-full h-auto" />
+                    </div>
+                </section>
+            </div>
+            
+            <div class="mt-16 md:mt-20 text-center">
+                <a href="/" class="inline-block bg-white border border-border text-primary font-bold py-3 px-8 rounded-full hover:bg-surface-alt transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                    トップページへ戻る
+                </a>
+            </div>
+
+        </div>
+    </main>
+
+    <Contact />
+
+    <script src="/assets/js/common.js" is:inline></script>
+
+</Layout>
