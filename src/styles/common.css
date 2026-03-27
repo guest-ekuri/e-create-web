@@ -1,0 +1,59 @@
+/* ★この1行がTailwindを呼び出す魔法の言葉です（絶対に一番上に書きます） */
+@import "tailwindcss";
+
+/* --- 1. 色の変数を定義する --- */
+/* --- テーマカラーの定義 (CSS変数) --- */
+:root {
+  /* ==========================================
+     ★クミアイ化学工業風テーマ (白・ベージュ背景 × 黒文字 × 赤アクセント)
+     ========================================== */
+
+  /* --- メインカラー（既存） --- */
+  --theme-primary: #222222;     /* 黒・濃いグレー - 見出し文字やシックな背景用 */
+  --theme-secondary: #db0a1d;   /* コーポレートレッド - サブタイトルや装飾用 */
+
+  /* --- ベース・背景色 --- */
+  --theme-light: #f7f6f2;       /* 薄いベージュ - やわらかい画面全体の背景用（既存） */
+  --theme-surface: #ffffff;     /* ピュアホワイト - カードやモーダル、入力フォームの背景用（追加） */
+  --theme-surface-alt: #eae7de; /* やや濃いベージュ - ヘッダー背景や、セクションの区切り用（追加） */
+
+  /* --- テキスト・ボーダー（追加） --- */
+  --theme-text-body: #4a4a4a;   /* ミディアムグレー - 長文のテキスト用（#222222より少し目に優しい） */
+  --theme-text-muted: #888888;  /* ライトグレー - 補足説明やプレースホルダー、目立たせたくない文字用 */
+  --theme-border: #dcd9d0;      /* ベージュに馴染むボーダー色 - 枠線や分割線用 */
+
+  /* --- アクセント・アクション --- */
+  --theme-accent: #db0a1d;          /* アクセント - ボタン等のメインアクション（既存と同じ） */
+  --theme-accent-hover: #b30717;    /* ホバー用レッド - ボタンにマウスを乗せた時の一段暗い赤（追加） */
+  --theme-accent-muted: #fcedee;    /* 極薄いレッド - 選択中のメニュー背景や、薄い警告メッセージの背景用（追加） */
+}
+
+/* --- 2. Tailwindに独自カラーを教える --- */
+@theme {
+  --color-primary: var(--theme-primary);
+  --color-secondary: var(--theme-secondary);
+  --color-light: var(--theme-light);
+  --color-surface: var(--theme-surface);
+  --color-surface-alt: var(--theme-surface-alt);
+  --color-text-body: var(--theme-text-body);
+  --color-text-muted: var(--theme-text-muted);
+  --color-border: var(--theme-border);
+  --color-accent: var(--theme-accent);
+  --color-accent-hover: var(--theme-accent-hover);
+  --color-accent-muted: var(--theme-accent-muted);
+}
+
+/* 全ページ共通のスタイル */
+body { 
+    /* エル・ティー・エス様風の細身でスタイリッシュなフォント設定 */
+    font-family: "Noto Sans JP", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", sans-serif; 
+    font-weight: 400; 
+    letter-spacing: 0.05em; 
+}
+.font-eng { font-family: 'Oswald', sans-serif; }
+
+/* フッターのリンクが前面に来るように調整 */
+footer a {
+    position: relative;
+    z-index: 20;
+}
