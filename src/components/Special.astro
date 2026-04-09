@@ -1,3 +1,23 @@
+---
+import { client, type Event } from '../library/microcms';
+
+// microCMSからイベントデータを取得
+const response = await client.getList<Event>({ endpoint: "events" });
+const events = response.contents;
+
+// タグのカラー辞書
+// タグのカラー辞書（テーマカラーに合わせてカスタマイズ）
+const tagColors: Record<string, string> = {
+  "お知らせ": "bg-accent-muted text-accent font-bold",   // 【薄い赤背景 × 赤文字】今風でスタイリッシュな表現
+  "Web更新": "bg-accent-muted text-accent font-bold",   // 【薄い赤背景 × 赤文字】今風でスタイリッシュな表現
+  "実績紹介": "bg-primary text-white",                   // 【黒】シックで公式感を出したい時
+  "記念式典": "bg-accent text-white",                    // 【コーポレートレッド】メインのアクティビティ
+  "社内行事": "bg-accent text-white",                    // 【コーポレートレッド】メインのアクティビティ
+  "アーカイブ": "bg-text-muted text-white",                  // 【薄いグレー】目立たせたくない時
+  "その他": "bg-text-muted text-white",                  // 【薄いグレー】目立たせたくない時
+};
+---
+
 <section id="special" class="py-20 bg-surface-alt">
     <div class="container mx-auto px-4 max-w-5xl">
         <div class="text-center mb-12 md:mb-16">
@@ -6,6 +26,7 @@
             <div class="w-12 h-1 bg-accent mx-auto"></div>
         </div>
         <div class="grid md:grid-cols-2 gap-12">
+            
             <div class="bg-surface p-8 rounded-xl shadow-md border-t-4 border-primary">
                 <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
                     <i class="fas fa-shield-alt text-primary mr-3"></i>感染症対策
@@ -45,23 +66,50 @@
 
             <div class="bg-surface p-8 rounded-xl shadow-md border-t-4 border-accent">
                 <h3 class="text-2xl font-bold text-primary mb-6 flex items-center">
-                    <i class="fas fa-glass-cheers text-accent mr-3"></i>イベント
+                    <i class="fas fa-glass-cheers text-accent mr-3"></i>イベント＆お知らせ
                 </h3>
                 <p class="mb-4 text-sm text-text-body">社内行事や記念イベントの様子を公開しています。</p>
                 
-                <div class="space-y-2">
-                    <a href="#" class="block p-3 border-b border-border hover:bg-accent-muted transition rounded-lg group">
-                        <div class="text-xs text-text-muted mb-1">2026.04.02 <span class="bg-accent text-white px-2 py-0.5 rounded text-xs ml-2">お知らせ</span></div>
-                        <div class="text-primary font-bold group-hover:text-accent transition">おかげさまで設立記念日を迎えました。</div>
-                    </a>
-                    <a href="#" class="block p-3 border-b border-border hover:bg-accent-muted transition rounded-lg group">
-                        <div class="text-xs text-text-muted mb-1">2026.03.31 <span class="bg-primary text-white px-2 py-0.5 rounded text-xs ml-2">Web更新</span></div>
-                        <div class="text-primary font-bold group-hover:text-accent transition">ホームページをリニューアルしました。</div>
-                    </a>
-                    <a href="#" class="block p-3 border-b border-border hover:bg-accent-muted transition rounded-lg group">
-                        <div class="text-xs text-text-muted mb-1">2025.10.20 <span class="bg-text-muted text-white px-2 py-0.5 rounded text-xs ml-2">実績紹介</span></div>
-                        <div class="text-primary font-bold group-hover:text-accent transition">最新の装置開発実績を追加しました。</div>
-                    </a>
+                <div class="space-y-2 max-h-[320px] overflow-y-auto pr-2 custom-scrollbar">
+                    {events.map((event) => {
+                        // ▼ ページ遷移を許可するタグのリスト ▼
+                        const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
+                        
+                        // tagsの中に、上記の許可リストのタグが1つでも含まれているかチェック
+                        const hasLink = event.tags && event.tags.some(tag => linkableTags.includes(tag));
+
+                        return hasLink ? (
+                            /* ▼ 遷移するタグの場合（詳細ページへ） ▼ */
+                            <a href={`/events/${event.id}`} class="block p-3 border-b border-border hover:bg-accent-muted transition rounded-lg group">
+                                <div class="text-xs text-text-muted mb-1 flex items-center flex-wrap gap-1">
+                                    {new Date(event.date).toLocaleDateString("ja-JP")}
+                                    {event.tags && event.tags.map((tag) => (
+                                        <span class={`px-2 py-0.5 rounded text-xs ${tagColors[tag] || tagColors["デフォルト"]}`}>
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div class="text-primary font-bold group-hover:text-accent transition">
+                                    {event.content}
+                                </div>
+                            </a>
+                        ) : (
+                            /* ▼ 遷移しないタグの場合（お知らせ、Web更新など） ▼ */
+                            <div class="block p-3 border-b border-border rounded-lg bg-surface">
+                                <div class="text-xs text-text-muted mb-1 flex items-center flex-wrap gap-1">
+                                    {new Date(event.date).toLocaleDateString("ja-JP")}
+                                    {event.tags && event.tags.map((tag) => (
+                                        <span class={`px-2 py-0.5 rounded text-xs ${tagColors[tag] || tagColors["デフォルト"]}`}>
+                                            {tag}
+                                        </span>
+                                    ))}
+                                </div>
+                                <div class="text-primary font-bold">
+                                    {event.content}
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>
