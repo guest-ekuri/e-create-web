@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
+import Hero from '../components/Hero.astro';
+
 import About from '../components/About.astro';
 import Company from '../components/Company.astro';
 import Strength from '../components/Strength.astro';
@@ -14,45 +16,7 @@ import Contact from '../components/Contact.astro';
 ---
 
 <Layout>
-    <section class="hero-bg h-screen min-h-[600px] flex items-center justify-center text-white mt-16">
-        
-        <div class="relative z-10 container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center pt-16">
-            <div class="text-left">
-                <span class="inline-block py-1 px-3 border border-white/50 rounded-full text-sm mb-4 tracking-wider bg-white/10 backdrop-blur">
-                    省力自動機の設計・制作・自動制御システムのプロ集団
-                </span>
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight drop-shadow-lg">
-                    <span class="inline-block">専門エンジニアの</span><span class="inline-block">総合力で、</span><br>
-                    <span class="inline-block">理想を</span><span class="inline-block text-accent">形に</span><span class="inline-block">。</span>
-                </h1>
-                <p class="text-lg md:text-xl mb-8 text-surface-alt leading-relaxed max-w-lg">
-                    機械設計、電気設計からソフト開発、組立まで。<br>
-                    お客様のニーズに最適な装置を提供いたします。
-                </p>
-                <div class="flex flex-col sm:flex-row gap-4">
-                    <a href="#contact" class="bg-accent hover:bg-accent-hover text-white text-center font-bold py-4 px-8 rounded shadow-lg transition transform hover:-translate-y-1">
-                        ご相談・お見積もり
-                    </a>
-                    <a href="#service" class="bg-white/10 hover:bg-white/20 backdrop-blur border border-white text-white text-center font-bold py-4 px-8 rounded shadow transition">
-                        事業内容を見る
-                    </a>
-                </div>
-            </div>
-            <div class="hidden md:block relative">
-                 <div class="bg-white/10 backdrop-blur-md p-6 rounded-lg border border-white/20 max-w-sm ml-auto">
-                    <h3 class="font-bold text-lg mb-2 border-b border-white/30 pb-2">Information</h3>
-                    <p class="text-sm mb-2">2026.04.02 <span class="bg-secondary text-xs px-1 rounded ml-1">Info</span><br>設立記念日を迎えました。</p>
-                    <p class="text-sm">2026.03.31 <span class="bg-secondary text-xs px-1 rounded ml-1">News</span><br>ホームページをリニューアルしました。</p>
-                 </div>
-            </div>
-        </div>
-        
-        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <a href="#about" class="text-white opacity-80 hover:opacity-100">
-                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
-            </a>
-        </div>
-    </section>
+    <Hero />
 
     <About />
     <Strength />
