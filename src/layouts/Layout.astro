@@ -25,10 +25,44 @@ import '../styles/top.css';
                 </span>
             </a>
             
-            <nav class="hidden xl:flex space-x-6 text-sm font-bold text-primary items-center">
-                <a href="/#about" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">企業情報</a>
-                <a href="/#service" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">事業内容</a>
-                <a href="/#special" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">特設・イベント</a>
+                        <nav class="hidden xl:flex space-x-6 text-sm font-bold text-primary items-center">
+                <div class="relative group py-2">
+                    <a href="/#about" class="hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center">
+                        企業情報 <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-accent transition"></i>
+                    </a>
+                    <div class="absolute left-0 top-full mt-0 w-48 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                        <a href="/#about" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">会社方針</a>
+                        <a href="/#company" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">企業概要</a>
+                        <a href="/#strength" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition">選ばれる理由</a>
+                    </div>
+                </div>
+
+                <div class="relative group py-2">
+                    <a href="/#service" class="hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center">
+                        事業内容 <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-accent transition"></i>
+                    </a>
+                    <div class="absolute left-0 top-full mt-0 w-48 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                        <a href="/#service" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">事業内容</a>
+                        <a href="/#works" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">開発・製作実績</a>
+                        <!-- 実績一覧ページは今後追加予定 -->
+                        <!-- <a href="/works" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">実績一覧</a> -->
+                        <a href="/#workflow" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition">ご依頼の流れ</a>
+                    </div>
+                </div>
+                
+                <div class="relative group py-2">
+                    <a href="/#special" class="hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center">
+                        特設・イベント <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-accent transition"></i>
+                    </a>
+                    <div class="absolute left-0 top-full mt-0 w-56 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
+                        <a href="/#special" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">特設・イベント</a>
+                        <!-- リニア駅ページは今後追加予定 -->
+                        <!-- <a href="/linear" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">リニア駅建設</a> -->
+                        <a href="/infection" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">感染症対策</a>
+                        <a href="/events" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition">イベント＆お知らせ</a>
+                    </div>
+                </div>
+
                 <a href="/#recruit" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">採用情報</a>
                 <a href="/#access" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">アクセス</a>
                 <a href="#contact" class="bg-accent hover:bg-accent-hover text-white px-6 py-2 rounded-full transition shadow-lg transform hover:-translate-y-0.5">
@@ -46,12 +80,26 @@ import '../styles/top.css';
         </div>
 
         <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-surface shadow-lg xl:hidden flex-col border-t border-border max-h-[80vh] overflow-y-auto">
-            <a href="/#about" class="block py-3 px-4 text-primary font-bold hover:bg-light border-b border-border transition">企業情報</a>
-            <a href="/#company" class="block py-3 px-4 text-primary font-bold hover:bg-light border-b border-border transition">企業概要</a>
-            <a href="/#service" class="block py-3 px-4 text-primary font-bold hover:bg-light border-b border-border transition">事業内容</a>
-            <a href="/#special" class="block py-3 px-4 text-primary font-bold hover:bg-light border-b border-border transition">特設ページ・イベント</a>
-            <a href="/#recruit" class="block py-3 px-4 text-primary font-bold hover:bg-light border-b border-border transition">採用情報</a>
-            <a href="/#access" class="block py-3 px-4 text-primary font-bold hover:bg-light border-b border-border transition">アクセス</a>
+            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">企業情報</div>
+            <a href="/#about" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">会社方針</a>
+            <a href="/#company" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">企業概要</a>
+            <a href="/#strength" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">選ばれる理由</a>
+            
+            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">事業内容</div>
+            <a href="/#service" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">事業内容トップ</a>
+            <a href="/#works" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">開発・製作実績</a>
+            <a href="/works" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">実績一覧</a>
+            <a href="/#workflow" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">ご依頼の流れ</a>
+            
+            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">特設・イベント</div>
+            <a href="/#special" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">特設セクション</a>
+            <a href="/linear" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">リニア駅建設</a>
+            <a href="/infection" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">感染症対策</a>
+            <a href="/events" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">イベント＆お知らせ</a>
+            
+            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">その他</div>
+            <a href="/#recruit" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">採用情報</a>
+            <a href="/#access" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">アクセス</a>
             <a href="#contact" class="block py-4 px-4 bg-light text-center text-accent font-bold transition">お問い合わせ</a>
         </div>
     </header>
@@ -78,6 +126,7 @@ import '../styles/top.css';
                 <div class="md:col-span-2">
                     <h4 class="text-white font-bold mb-6 tracking-widest border-b border-white/20 pb-2">サイトマップ</h4>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
+
                         <ul class="space-y-3">
                             <li><a href="/#about" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>会社方針</a></li>
                             <li><a href="/#company" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>企業概要</a></li>
@@ -90,9 +139,12 @@ import '../styles/top.css';
                         </ul>
                         <ul class="space-y-3">
                             <li><a href="/#special" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>特設・イベント</a></li>
+                            <li><a href="/infection" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>感染症対策</a></li>
+                            <li><a href="/events" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>イベント＆お知らせ</a></li>
                             <li><a href="/#recruit" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>採用情報</a></li>
                             <li><a href="/#access" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>アクセス</a></li>
                         </ul>
+
                     </div>
                 </div>
 
