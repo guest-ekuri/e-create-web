@@ -1,0 +1,201 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Contact from '../../components/Contact.astro';
+import { client, type Event } from '../../library/microcms';
+
+// microCMSからイベントデータを全件（または多めに）取得
+// ※件数が多い場合は limit: 100 などを指定してください
+const response = await client.getList<Event>({ endpoint: "events", queries: { limit: 100 } });
+const events = response.contents;
+
+// タグのカラー辞書（トップページと同じもの）
+const tagColors: Record<string, string> = {
+  "お知らせ": "bg-accent-muted text-accent font-bold",
+  "Web更新": "bg-accent-muted text-accent font-bold",
+  "実績紹介": "bg-primary text-white",
+  "記念式典": "bg-accent text-white",
+  "社内行事": "bg-accent text-white",
+  "アーカイブ": "bg-text-muted text-white",
+  "その他": "bg-text-muted text-white",
+};
+
+// 重複のない全タグのリストを作成（絞り込みボタン用）
+const allTags = Array.from(new Set(events.flatMap(e => e.tags || [])));
+
+// 詳細ページへの遷移を許可するタグ
+const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
+---
+
+<Layout title="イベント＆お知らせ | 株式会社 新ニホンテック">
+    <div class="pt-24 pb-20 bg-surface-alt min-h-screen">
+        <div class="container mx-auto px-4 max-w-4xl">
+            
+            <!-- パンくずリスト -->
+            <div class="text-sm text-text-muted mb-8">
+                <a href="/" class="hover:text-accent transition">トップ</a> &rsaquo;
+                <span class="text-primary font-bold">イベント＆お知らせ</span>
+            </div>
+
+            <!-- タイトル -->
+            <div class="text-center mb-12 md:mb-20">
+                <span class="text-accent font-eng tracking-widest text-sm md:text-base font-bold block mb-2 uppercase">Events & Announcements</span>
+                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-wider">イベント＆お知らせ</h1>
+                <div class="w-12 h-1 bg-accent mx-auto"></div>
+            </div>
+
+            <div class="bg-surface rounded-xl shadow-lg p-6 md:p-10">
+                
+                <div class="mb-8 border-b border-border pb-6">
+                    <div class="flex flex-wrap gap-2" id="tag-filters">
+                        <button class="filter-btn active px-4 py-2 rounded-full text-sm font-bold transition bg-primary text-white shadow-md" data-tag="all">
+                            すべて
+                        </button>
+                        {allTags.map(tag => (
+                            <button class="filter-btn px-4 py-2 rounded-full text-sm font-bold transition bg-surface-alt text-primary hover:bg-gray-200 border border-border" data-tag={tag}>
+                                {tag}
+                            </button>
+                        ))}
+                    </div>
+                </div>
+
+                <div id="event-list" class="space-y-4 min-h-[400px]">
+                    {events.map((event) => {
+                        const hasLink = event.tags && event.tags.some(tag => linkableTags.includes(tag));
+                        // JSでの絞り込み用に、タグをカンマ区切りの文字列としてdata属性に持たせる
+                        const tagsString = event.tags ? event.tags.join(',') : '';
+
+                        return hasLink ? (
+                            <a href={`/events/${event.id}`} class="event-item block p-4 border border-border rounded-lg hover:shadow-md transition group bg-white" data-tags={tagsString}>
+                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                                    <span class="text-sm text-text-muted w-24 shrink-0">{new Date(event.date).toLocaleDateString("ja-JP")}</span>
+                                    <div class="flex flex-wrap gap-1">
+                                        {event.tags && event.tags.map(tag => (
+                                            <span class={`px-2 py-0.5 rounded text-xs ${tagColors[tag] || tagColors["デフォルト"]}`}>{tag}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <h2 class="text-lg font-bold text-primary group-hover:text-accent transition md:ml-26">
+                                    {event.content}
+                                </h2>
+                            </a>
+                        ) : (
+                            <div class="event-item block p-4 border border-border rounded-lg bg-surface-alt" data-tags={tagsString}>
+                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                                    <span class="text-sm text-text-muted w-24 shrink-0">{new Date(event.date).toLocaleDateString("ja-JP")}</span>
+                                    <div class="flex flex-wrap gap-1">
+                                        {event.tags && event.tags.map(tag => (
+                                            <span class={`px-2 py-0.5 rounded text-xs ${tagColors[tag] || tagColors["デフォルト"]}`}>{tag}</span>
+                                        ))}
+                                    </div>
+                                </div>
+                                <h2 class="text-lg font-bold text-primary md:ml-26">
+                                    {event.content}
+                                </h2>
+                            </div>
+                        );
+                    })}
+                </div>
+
+                <div id="pagination" class="flex justify-center items-center gap-2 mt-10">
+                </div>
+
+            </div>
+
+            <div class="mt-16 md:mt-20 text-center">
+                <a href="/" class="inline-block bg-white border border-border text-primary font-bold py-3 px-8 rounded-full hover:bg-surface-alt transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                    トップページへ戻る
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <Contact />
+
+</Layout>
+
+<script is:inline>
+document.addEventListener('DOMContentLoaded', () => {
+    const ITEMS_PER_PAGE = 10; // 1ページあたりの表示件数
+    let currentPage = 1;
+    let currentFilter = 'all';
+
+    const items = Array.from(document.querySelectorAll('.event-item'));
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const paginationContainer = document.getElementById('pagination');
+    const eventListContainer = document.getElementById('event-list');
+
+    // リストの描画処理
+    function render() {
+        // 1. フィルターで対象アイテムを絞り込む
+        const filteredItems = items.filter(item => {
+            if (currentFilter === 'all') return true;
+            const tags = item.getAttribute('data-tags').split(',');
+            return tags.includes(currentFilter);
+        });
+
+        // 2. ページネーションの計算
+        const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+        if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+
+        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+        const endIndex = startIndex + ITEMS_PER_PAGE;
+
+        // 3. 全アイテムを一度非表示にし、該当ページのアイテムだけ表示する
+        items.forEach(item => item.style.display = 'none');
+        filteredItems.slice(startIndex, endIndex).forEach(item => {
+            item.style.display = 'block';
+        });
+
+        // 4. ページネーションボタンの生成
+        renderPagination(totalPages);
+    }
+
+    // ページネーションボタンの生成
+    function renderPagination(totalPages) {
+        paginationContainer.innerHTML = '';
+
+        if (totalPages <= 1) return; // 1ページしかない場合は非表示
+
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.textContent = i;
+            // 現在のページは赤（アクセントカラー）、それ以外はグレー
+            if (i === currentPage) {
+                btn.className = 'w-10 h-10 rounded-full flex items-center justify-center font-bold bg-accent text-white shadow-md';
+            } else {
+                btn.className = 'w-10 h-10 rounded-full flex items-center justify-center font-bold bg-surface-alt text-primary hover:bg-gray-200 border border-border transition cursor-pointer';
+            }
+            
+            btn.addEventListener('click', () => {
+                currentPage = i;
+                render();
+                // ページ切り替え時にリストの一番上にスクロール
+                window.scrollTo({ top: eventListContainer.offsetTop - 100, behavior: 'smooth' });
+            });
+
+            paginationContainer.appendChild(btn);
+        }
+    }
+
+    // フィルターボタンのクリックイベント
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            // ボタンのデザインを切り替え
+            filterBtns.forEach(b => {
+                b.classList.remove('bg-primary', 'text-white', 'shadow-md');
+                b.classList.add('bg-surface-alt', 'text-primary');
+            });
+            e.currentTarget.classList.remove('bg-surface-alt', 'text-primary');
+            e.currentTarget.classList.add('bg-primary', 'text-white', 'shadow-md');
+
+            // フィルターを適用して1ページ目に戻る
+            currentFilter = e.currentTarget.getAttribute('data-tag');
+            currentPage = 1;
+            render();
+        });
+    });
+
+    // 初回レンダリング
+    render();
+});
+</script>
