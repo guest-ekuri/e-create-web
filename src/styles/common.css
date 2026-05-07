@@ -429,6 +429,20 @@ footer a {
     @apply bg-surface-alt text-primary p-1 rounded mr-3 text-xs border border-border;
   }
 
+
+  /* ========================================
+     ギャラリースライダー ナビゲーションボタン
+     （スライダー左右の前へ・次へボタン。暗い背景上で使用）
+     他ページでスライダーを追加する場合も使い回し可能。
+     ======================================== */
+
+  /* 左右ナビゲーションボタン共通（位置は使う側で absolute + left/right を指定） */
+  .btn-gallery-nav {
+    @apply absolute top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center
+           bg-white/20 hover:bg-white/40 text-white rounded-full
+           transition backdrop-blur-sm z-20;
+  }
+
 }
 
 /* --- 5. その他 --- */
