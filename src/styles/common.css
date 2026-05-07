@@ -35,22 +35,6 @@
 }
 
 
-/* --- トップページ専用スタイル --- */
-.hero-bg {
-    background-image: url('/assets/images/image1.jpg');
-    background-size: cover;
-    background-position: center;
-    position: relative;
-}
-
-/* パソコン画面のみ背景を固定してパララックス風にする */
-@media (min-width: 768px) {
-    .hero-bg {
-        background-attachment: fixed;
-    }
-}
-
-
 /* --- 2. Tailwindに独自カラーを教える --- */
 @theme {
   --color-primary: var(--theme-primary);
@@ -445,4 +429,35 @@ footer a {
     @apply bg-surface-alt text-primary p-1 rounded mr-3 text-xs border border-border;
   }
 
+}
+
+/* --- 5. その他 --- */
+/* --- トップページ ヒーロー背景 --- */
+.hero-bg {
+    background-image: url('/assets/images/image1.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* パソコン画面のみ背景を固定してパララックス風にする */
+@media (min-width: 768px) {
+    .hero-bg {
+        background-attachment: fixed;
+    }
+}
+
+
+/* ========================================
+   ワークフロー ステップ
+   ======================================== */
+
+/* ステップ1つ分のコンテナ */
+.workflow-step {
+  @apply bg-surface p-4 flex flex-col items-center w-full md:w-48 mb-8 md:mb-0;
+}
+
+/* ステップ番号の丸アイコン */
+.workflow-step-circle {
+  @apply w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow text-surface;
 }
