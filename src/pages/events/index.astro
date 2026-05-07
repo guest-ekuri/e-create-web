@@ -28,19 +28,19 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
 
 <Layout title="イベント＆お知らせ | 株式会社 新ニホンテック">
     <div class="pt-24 pb-20 bg-surface-alt min-h-screen">
-        <div class="container mx-auto px-4 max-w-4xl">
+        <div class="section-container max-w-4xl">
             
             <!-- パンくずリスト -->
-            <div class="text-sm text-text-muted mb-8">
-                <a href="/" class="hover:text-accent transition">トップ</a> &rsaquo;
-                <span class="text-primary font-bold">イベント＆お知らせ</span>
-            </div>
+            <nav class="breadcrumb">
+                <a href="/">トップ</a>
+                <span>イベント＆お知らせ</span>
+            </nav>
 
             <!-- タイトル -->
-            <div class="text-center mb-12 md:mb-20">
-                <span class="text-accent font-eng tracking-widest text-sm md:text-base font-bold block mb-2 uppercase">Events & Announcements</span>
-                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-wider">イベント＆お知らせ</h1>
-                <div class="w-12 h-1 bg-accent mx-auto"></div>
+            <div class="section-header mb-12 md:mb-20">
+                <span class="section-eyebrow">Events & Announcements</span>
+                <h1 class="section-title tracking-wider">イベント＆お知らせ</h1>
+                <div class="section-divider"></div>
             </div>
 
             <div class="bg-surface rounded-xl shadow-lg p-6 md:p-10">
@@ -66,7 +66,7 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
 
                         return hasLink ? (
                             <a href={`/events/${event.id}`} class="event-item block p-4 border border-border rounded-lg hover:shadow-md transition group bg-white" data-tags={tagsString}>
-                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                                <div class="event-meta mb-2 md:flex-row md:items-center gap-2">
                                     <span class="text-sm text-text-muted w-24 shrink-0">{new Date(event.date).toLocaleDateString("ja-JP")}</span>
                                     <div class="flex flex-wrap gap-1">
                                         {event.tags && event.tags.map(tag => (
@@ -80,7 +80,7 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
                             </a>
                         ) : (
                             <div class="event-item block p-4 border border-border rounded-lg bg-surface-alt" data-tags={tagsString}>
-                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                                <div class="event-meta mb-2 md:flex-row md:items-center gap-2">
                                     <span class="text-sm text-text-muted w-24 shrink-0">{new Date(event.date).toLocaleDateString("ja-JP")}</span>
                                     <div class="flex flex-wrap gap-1">
                                         {event.tags && event.tags.map(tag => (
@@ -102,7 +102,7 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
             </div>
 
             <div class="mt-16 md:mt-20 text-center">
-                <a href="/" class="inline-block bg-white border border-border text-primary font-bold py-3 px-8 rounded-full hover:bg-surface-alt transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                <a href="/" class="btn-back">
                     トップページへ戻る
                 </a>
             </div>
