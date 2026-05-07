@@ -20,13 +20,20 @@
   /* --- テキスト・ボーダー（追加） --- */
   --theme-text-body: #4a4a4a;   /* ミディアムグレー - 長文のテキスト用（#222222より少し目に優しい） */
   --theme-text-muted: #888888;  /* ライトグレー - 補足説明やプレースホルダー、目立たせたくない文字用 */
+
+  /* ★ここを追加：暗い背景に乗せる文字用の変数 */
+  --theme-text-inverse: #ffffff;         /* 反転文字（ピュアホワイト） - ボタンの文字や見出し用 */
+  --theme-text-inverse-muted: #e2e6ea;   /* 薄い反転文字（ライトグレー） - フッターの本文用 */
+
   --theme-border: #dcd9d0;      /* ベージュに馴染むボーダー色 - 枠線や分割線用 */
 
   /* --- アクセント・アクション --- */
   --theme-accent: #db0a1d;          /* アクセント - ボタン等のメインアクション（既存と同じ） */
   --theme-accent-hover: #b30717;    /* ホバー用レッド - ボタンにマウスを乗せた時の一段暗い赤（追加） */
   --theme-accent-muted: #fcedee;    /* 極薄いレッド - 選択中のメニュー背景や、薄い警告メッセージの背景用（追加） */
+  --theme-accent-opening: #FFA500;   /* オープニング用のオレンジ */
 }
+
 
 /* --- 2. Tailwindに独自カラーを教える --- */
 @theme {
@@ -37,23 +44,434 @@
   --color-surface-alt: var(--theme-surface-alt);
   --color-text-body: var(--theme-text-body);
   --color-text-muted: var(--theme-text-muted);
+  --color-text-inverse: var(--theme-text-inverse);
+  --color-text-inverse-muted: var(--theme-text-inverse-muted);
   --color-border: var(--theme-border);
   --color-accent: var(--theme-accent);
   --color-accent-hover: var(--theme-accent-hover);
   --color-accent-muted: var(--theme-accent-muted);
+  --color-accent-opening: var(--theme-accent-opening);
+
+  /* ★ここに追加！Tailwindに独自フォントを登録します */
+  --font-eng: 'Oswald', sans-serif;
 }
 
-/* 全ページ共通のスタイル */
+
+/* --- 3. 全ページ共通のスタイル --- */
 body { 
-    /* エル・ティー・エス様風の細身でスタイリッシュなフォント設定 */
-    font-family: "Noto Sans JP", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", sans-serif; 
+    font-family: 'Noto Sans JP', sans-serif; 
     font-weight: 400; 
     letter-spacing: 0.05em; 
 }
-.font-eng { font-family: 'Oswald', sans-serif; }
 
+.scroll-smooth { scroll-behavior: smooth; }
+/* ↓ ★この1行を削除してください（Tailwindが自動生成するようになります） */
+/* .font-eng { font-family: 'Oswald', sans-serif; } */
 /* フッターのリンクが前面に来るように調整 */
 footer a {
     position: relative;
     z-index: 20;
+}
+
+
+/* --- 4. 共通コンポーネント（部品） --- */
+@layer components {
+
+  /* ========================================
+     セクション構造
+     ======================================== */
+
+  /* セクション内の基本コンテナ */
+  .section-container {
+    @apply container mx-auto px-4;
+  }
+
+  /* セクション見出しブロック全体（中央寄せ・下マージン付き） */
+  .section-header {
+    @apply text-center mb-12 md:mb-16;
+  }
+
+  /* 見出し上の英語小見出し（アイキャッチャー） */
+  .section-eyebrow {
+    @apply text-accent font-eng tracking-widest text-sm md:text-base font-bold block mb-2 uppercase;
+  }
+
+  /* セクションのメイン見出し（h2） */
+  .section-title {
+    @apply text-3xl md:text-4xl font-bold text-primary mb-4;
+  }
+
+    /* セクションのメイン見出し（h2） */
+  .section-title-white {
+    @apply text-3xl md:text-4xl font-bold text-surface mb-4;
+  }
+
+  /* 見出し下の緑のアクセントバー（中央寄せ） */
+  .section-divider {
+    @apply w-12 h-1 bg-accent mx-auto;
+  }
+
+  /* 見出し下の緑のアクセントバー（左寄せ） */
+  .section-divider--left {
+    @apply w-12 h-1 bg-accent;
+  }
+
+
+  /* ========================================
+     ボタン
+     ======================================== */
+
+  /* グリーンの塗りつぶしボタン（メインCTA） */
+  .btn-primary {
+    @apply inline-flex items-center justify-center bg-accent hover:bg-accent-hover text-text-inverse font-bold py-3 px-10 rounded-full transition duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5;
+  }
+
+  /* ヘッダー等の狭い場所用・小型プライマリボタン */
+  .btn-primary-sm {
+    @apply inline-flex items-center justify-center bg-accent hover:bg-accent-hover text-text-inverse font-bold py-2 px-6 rounded-full transition duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5;
+  }
+
+  /* プライマリカラー（ネイビー）の塗りつぶしボタン（サブCTA・補足的なアクション用） */
+  .btn-secondary {
+    @apply inline-block bg-primary text-text-inverse font-bold py-3 px-10 rounded-full hover:opacity-80 transition shadow-lg transform hover:-translate-y-0.5;
+  }
+
+  /* 白背景・ボーダー付きボタン（戻るボタン・サブCTA） */
+  .btn-back {
+    @apply inline-flex items-center justify-center bg-surface border border-border text-primary font-bold py-3 px-8 rounded-full hover:bg-surface-alt transition duration-300 shadow-sm hover:shadow-md hover:-translate-y-0.5;
+  }
+
+  /* 黒・暗い背景用の透過ボタン（ページトップなど） */
+  .btn-transparent {
+    @apply inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-text-inverse px-6 py-3 rounded-full transition border border-white/10 text-sm font-bold;
+  }
+
+  /* ========================================
+     カード
+     ======================================== */
+
+  /* 強み・特徴紹介用カード（大きい影・ホバーあり） */
+  .card--feature {
+    @apply bg-surface p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border border-border relative overflow-hidden;
+  }
+
+  /* 実績・一覧用カード（シンプル・ホバーあり） */
+  /* groupを削除, .astroの方に記述 */
+  .card--works {
+    @apply bg-surface rounded shadow hover:shadow-lg transition border border-border;
+  }
+
+  /* 情報表示用カード（bg-light・角丸） */
+  .card--info {
+    @apply bg-light rounded-xl shadow p-8 border border-border;
+  }
+
+  /* アクセス等の小さい情報カード（bg-surface・丸み小） */
+  .card--detail {
+    @apply bg-surface p-6 rounded-lg shadow-sm border border-border;
+  }
+
+  /* 黒・暗い背景用の透過カード（グループ会社リンクなど） */
+  .card--transparent {
+    @apply flex items-center p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition shadow-lg;
+  }
+
+
+  /* ========================================
+     バッジ
+     ======================================== */
+
+/* バッジの共通ベーススタイル（色以外を定義） */
+  .badge--event {
+    @apply inline-block bg-accent text-text-inverse text-xs font-bold px-3 py-1 rounded-full mb-4 tracking-wider uppercase;
+  }
+
+  /* アクセントカラー（緑）のバッジ */
+  .badge--accent {
+    @apply bg-accent text-text-inverse text-xs font-bold px-2 py-1 rounded;
+  }
+
+  /* プライマリカラー（ネイビー）のバッジ */
+  .badge--primary {
+    @apply bg-primary text-text-inverse text-xs font-bold px-2 py-1 rounded;
+  }
+
+
+  /* ========================================
+     アイコン丸コンテナ
+     ======================================== */
+
+  /* 強み用アイコン円（アクセント薄背景） */
+  .icon-circle--accent {
+    @apply w-16 h-16 bg-accent-muted rounded-full flex items-center justify-center text-accent;
+  }
+
+  /* 感染症対策ページ等の情報アイコン円（サーフェス背景・ボーダー付き） */
+  .icon-circle--surface {
+    @apply w-16 h-16 bg-surface-alt rounded-full flex items-center justify-center text-primary text-2xl border border-border shadow-inner flex-shrink-0;
+  }
+
+
+/* ========================================
+     パンくずリスト
+     ======================================== */
+
+  /* パンくずリストのコンテナ */
+  .breadcrumb {
+    @apply text-sm text-text-muted mb-8 flex items-center flex-wrap;
+  }
+
+  /* パンくずリスト内のリンク（過去のページ） */
+  .breadcrumb a {
+    @apply hover:text-accent transition font-bold flex items-center;
+  }
+
+  /* ★ここが魔法！ リンク（aタグ）の右側に自動で矢印（›）を挿入します */
+  .breadcrumb a::after {
+    content: '\203A'; /* 特殊文字（›）のコード */
+    @apply text-text-muted font-normal mx-2; /* 矢印の色と余白を指定 */
+  }
+
+  /* 現在のページ（一番最後の文字） */
+  .breadcrumb span {
+    @apply text-primary font-bold truncate;
+  }
+
+
+  /* ========================================
+     チェックリスト
+     ======================================== */
+
+  /* チェックマーク付きリストアイテム */
+  .checklist-item {
+    @apply flex items-center;
+  }
+
+
+  /* ========================================
+     ヘッダー・ナビゲーション
+     ======================================== */
+
+  /* ヘッダー全体（固定・すりガラス効果） */
+  .header-nav {
+    @apply bg-surface/95 backdrop-blur shadow-md fixed w-full z-50 transition-all duration-300;
+  }
+
+  /* ヘッダーのロゴ（ブランド）リンク */
+  .header-brand {
+    @apply text-primary flex flex-col justify-center leading-none;
+  }
+
+  /* ドロップダウンを持たない通常のリンク */
+  .nav-link {
+    @apply hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent;
+  }
+
+  /* ドロップダウンを持つ親リンク */
+  .nav-dropdown-trigger {
+    @apply hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center;
+  }
+
+  /* ドロップダウンメニューの枠 */
+  .nav-dropdown-menu {
+    @apply absolute left-0 top-full mt-0 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden;
+  }
+
+  /* ドロップダウン内の各リンク */
+  .nav-dropdown-link {
+    @apply block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border;
+  }
+  
+  /* ドロップダウン内の最後のリンク（下線なし） */
+  .nav-dropdown-link--last {
+    @apply block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition;
+  }
+
+  /* ★魔法：ドロップダウンリンクの右側に自動で下矢印(fa-chevron-down)を付与 */
+  .nav-dropdown-trigger::after {
+    content: '\f078'; /* FontAwesomeのchevron-down */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    @apply ml-1 text-[10px] text-text-muted transition duration-300;
+  }
+
+  .nav-dropdown-trigger:hover::after {
+    @apply text-accent;
+  }
+
+  /* ========================================
+     モバイルナビゲーション
+     ======================================== */
+
+
+
+
+  /* モバイルメニューのカテゴリ見出し */
+  .mobile-menu {
+    @apply hidden absolute top-full left-0 w-full bg-surface shadow-lg xl:hidden flex-col border-t border-border max-h-[80vh] overflow-y-auto;
+  }
+
+  /* モバイルメニューのカテゴリ見出し */
+  .mobile-menu-heading {
+    @apply border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-text-muted;
+  }
+
+  /* モバイルメニュー内のリンク */
+  .mobile-menu-link {
+    @apply block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition;
+  }
+
+  /* モバイルメニュー内の最後のリンク */
+  .mobile-menu-link--last {
+    @apply block py-4 px-4 bg-light text-center text-accent font-bold transition;
+  }
+
+  /* スマホ用のハンバーガーメニューボタン */
+  .mobile-menu-btn {
+    @apply text-primary hover:text-accent focus:outline-none p-2 transition;
+  }
+
+  /* ========================================
+     フッター
+     ======================================== */
+
+  /* フッター内の小見出し（サイトマップ、関連リンクなど） */
+  .footer-heading {
+    @apply text-text-inverse font-bold mb-6 tracking-widest border-b border-white/20 pb-2;
+  }
+
+  /* フッター内の標準テキスト */
+  .footer-text {
+    @apply text-sm leading-relaxed text-surface-alt;
+  }
+
+  /* フッターの一番下（コピーライトの枠） */
+  .footer-copyright {
+    @apply pt-8 border-t border-white/10 text-text-muted text-center text-sm;
+  }
+
+  /* フッター内のリストリンク（矢印付き） */
+  .footer-link {
+    @apply hover:text-text-inverse transition flex items-center text-text-muted;
+  }
+
+  /* フッターリンクの左側に自動で右矢印(fa-chevron-right)を付与 */
+  .footer-link::before {
+    content: '\f054'; /* FontAwesomeのchevron-right */
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    @apply text-[10px] text-accent mr-2 transition duration-300;
+  }
+
+
+  /* ========================================
+     Specialセクション カード
+     ======================================== */
+
+  /* カード共通ベース */
+  .card--special-accent,
+  .card--special-primary {
+    @apply bg-surface p-8 rounded-xl shadow-md flex flex-col justify-between h-full border-t-4;
+  }
+
+  /* アクセント（緑）ボーダーのカード */
+  .card--special-accent {
+    @apply border-accent;
+  }
+
+  /* プライマリ（ネイビー）ボーダーのカード */
+  .card--special-primary {
+    @apply border-primary;
+  }
+
+  /* カード内の見出し（h3） */
+  .card-special-title {
+    @apply text-2xl font-bold text-primary mb-6 flex items-center;
+  }
+
+  /* カード下部のボタンエリア */
+  .card-special-footer {
+    @apply text-center mt-auto pt-8;
+  }
+
+  /* 無効化ボタン（近日公開など） */
+  .btn-disabled {
+    @apply inline-block bg-gray-300 text-gray-500 text-sm font-bold py-3 px-10 rounded-full cursor-not-allowed shadow-inner;
+  }
+
+
+  /* ========================================
+     イベント一覧アイテム
+     ======================================== */
+
+  /* イベント1件分の行 */
+  .event-item {
+    @apply block p-3 border-b border-border rounded-lg transition;
+  }
+
+  /* 日付＋タグのメタ情報行 */
+  .event-meta {
+    @apply text-xs text-text-muted mb-1 flex items-center flex-wrap gap-1;
+  }
+
+
+  /* ========================================
+     感染症対策リスト
+     ======================================== */
+
+  /* 対策リストの1行（アイコン＋テキスト） */
+  .infection-item {
+    @apply flex items-start;
+  }
+
+  /* 「対策」バッジ */
+  .infection-badge {
+    @apply bg-surface-alt text-primary p-1 rounded mr-3 text-xs border border-border;
+  }
+
+
+  /* ========================================
+     ギャラリースライダー ナビゲーションボタン
+     （スライダー左右の前へ・次へボタン。暗い背景上で使用）
+     他ページでスライダーを追加する場合も使い回し可能。
+     ======================================== */
+
+  /* 左右ナビゲーションボタン共通（位置は使う側で absolute + left/right を指定） */
+  .btn-gallery-nav {
+    @apply absolute top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center
+           bg-white/20 hover:bg-white/40 text-white rounded-full
+           transition backdrop-blur-sm z-20;
+  }
+
+}
+
+/* --- 5. その他 --- */
+/* --- トップページ ヒーロー背景 --- */
+.hero-bg {
+    background-image: url('/assets/images/image1.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* パソコン画面のみ背景を固定してパララックス風にする */
+@media (min-width: 768px) {
+    .hero-bg {
+        background-attachment: fixed;
+    }
+}
+
+
+/* ========================================
+   ワークフロー ステップ
+   ======================================== */
+
+/* ステップ1つ分のコンテナ */
+.workflow-step {
+  @apply bg-surface p-4 flex flex-col items-center w-full md:w-48 mb-8 md:mb-0;
+}
+
+/* ステップ番号の丸アイコン */
+.workflow-step-circle {
+  @apply w-16 h-16 rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow text-surface;
 }

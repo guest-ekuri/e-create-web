@@ -1,38 +1,65 @@
+---
+// Workflow バージョンB: ステップデータを配列で定義してループする版
+
+const steps = [
+    {
+        number: "01",
+        color: "bg-accent",
+        title: "お問い合わせ",
+        description: "仕様やご要望を\nまずはお聞かせください。",
+    },
+    {
+        number: "02",
+        color: "bg-primary",
+        title: "構想・ヒアリング",
+        description: "エンジニアが直接\n最適なプランを\n検討します。",
+    },
+    {
+        number: "03",
+        color: "bg-primary",
+        title: "お見積り・設計",
+        description: "お見積り承認後、\n3D-CADを用いた\n詳細設計を行います。",
+    },
+    {
+        number: "04",
+        color: "bg-primary",
+        title: "製作・組立",
+        description: "自社内での一貫体制で\n装置の製作を進めます。",
+    },
+    {
+        number: "05",
+        color: "bg-accent-hover",
+        title: "動作試験・納品",
+        description: "厳密な動作確認を実施し\nお引き渡しします。",
+    },
+];
+---
+
 <section id="workflow" class="py-20 bg-surface border-t border-border">
-    <div class="container mx-auto px-4">
-        <div class="text-center mb-12 md:mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">ご依頼の流れ</h2>
-            <div class="w-12 h-1 bg-accent mx-auto mb-4"></div>
+    <div class="section-container">
+        <div class="section-header">
+            <h2 class="section-title">ご依頼の流れ</h2>
+            <div class="section-divider mb-4"></div>
             <p class="text-text-body">ヒアリングから納品まで、専門エンジニアが丁寧に対応させていただきます。</p>
         </div>
         
         <div class="flex flex-col md:flex-row justify-between items-start max-w-5xl mx-auto relative">
             <div class="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-border -z-10 transform -translate-y-1/2"></div>
-            <div class="bg-surface p-4 flex flex-col items-center w-full md:w-48 mb-8 md:mb-0">
-                <div class="w-16 h-16 bg-accent text-surface rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow">01</div>
-                <h3 class="font-bold text-primary mb-2">お問い合わせ</h3>
-                <p class="text-xs text-center text-text-muted">仕様やご要望を<br>まずはお聞かせください。</p>
-            </div>
-            <div class="bg-surface p-4 flex flex-col items-center w-full md:w-48 mb-8 md:mb-0">
-                <div class="w-16 h-16 bg-primary text-surface rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow">02</div>
-                <h3 class="font-bold text-primary mb-2">構想・ヒアリング</h3>
-                <p class="text-xs text-center text-text-muted">エンジニアが直接<br>最適なプランを<br>検討します。</p>
-            </div>
-                <div class="bg-surface p-4 flex flex-col items-center w-full md:w-48 mb-8 md:mb-0">
-                <div class="w-16 h-16 bg-primary text-surface rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow">03</div>
-                <h3 class="font-bold text-primary mb-2">お見積り・設計</h3>
-                <p class="text-xs text-center text-text-muted">お見積り承認後、<br>3D-CADを用いた<br>詳細設計を行います。</p>
-            </div>
-                <div class="bg-surface p-4 flex flex-col items-center w-full md:w-48 mb-8 md:mb-0">
-                <div class="w-16 h-16 bg-primary text-surface rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow">04</div>
-                <h3 class="font-bold text-primary mb-2">製作・組立</h3>
-                <p class="text-xs text-center text-text-muted">自社内での一貫体制で<br>装置の製作を進めます。</p>
-            </div>
-                <div class="bg-surface p-4 flex flex-col items-center w-full md:w-48">
-                <div class="w-16 h-16 bg-accent-hover text-surface rounded-full flex items-center justify-center text-xl font-bold mb-4 border-4 border-surface shadow">05</div>
-                <h3 class="font-bold text-primary mb-2">動作試験・納品</h3>
-                <p class="text-xs text-center text-text-muted">厳密な動作確認を実施し<br>お引き渡しします。</p>
-            </div>
+
+            {steps.map((step) => (
+                <div class="workflow-step">
+                    <div class={`workflow-step-circle ${step.color}`}>{step.number}</div>
+                    <h3 class="font-bold text-primary mb-2">{step.title}</h3>
+                    <p class="text-xs text-center text-text-muted">
+                        {step.description.split('\n').map((line, i, arr) => (
+                            <>
+                                {line}
+                                {i < arr.length - 1 && <br />}
+                            </>
+                        ))}
+                    </p>
+                </div>
+            ))}
         </div>
     </div>
 </section>

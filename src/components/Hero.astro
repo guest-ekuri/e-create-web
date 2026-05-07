@@ -15,16 +15,13 @@ const infoItems = response.contents
 const tagLabels: Record<string, string> = {
   "お知らせ": "Info",
   "Web更新": "News",
-  // 必要であれば他のタグも追加できます
-  // "実績紹介": "Works",
-  // "記念式典": "Event",
 };
 ---
 
 
 <section class="hero-bg h-screen min-h-[600px] flex items-center justify-center text-white mt-16">
     
-    <div class="relative z-10 container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center pt-16">
+    <div class="relative z-10 section-container grid md:grid-cols-2 gap-8 items-center pt-16">
         <!-- 画面左テキスト -->
         <div class="text-left">
             <span class="inline-block py-1 px-3 border border-white/50 rounded-full text-sm mb-4 tracking-wider bg-white/10 backdrop-blur">
@@ -39,10 +36,10 @@ const tagLabels: Record<string, string> = {
                 お客様のニーズに最適な装置を提供いたします。
             </p>
             <div class="flex flex-col sm:flex-row gap-4">
-                <a href="#contact" class="bg-accent hover:bg-accent-hover text-white text-center font-bold py-4 px-8 rounded shadow-lg transition transform hover:-translate-y-1">
+                <a href="#contact" class="btn-primary rounded">
                     ご相談・お見積もり
                 </a>
-                <a href="#service" class="bg-white/10 hover:bg-white/20 backdrop-blur border border-white text-white text-center font-bold py-4 px-8 rounded shadow transition">
+                <a href="#service" class="btn-transparent rounded">
                     事業内容を見る
                 </a>
             </div>

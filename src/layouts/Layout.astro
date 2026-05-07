@@ -1,7 +1,6 @@
 ---
 // ここはAstroのプログラムを書く場所です（今回はCSSを読み込みます） 
 import '../styles/common.css';
-import '../styles/top.css';
 ---
 
 <!DOCTYPE html>
@@ -16,9 +15,9 @@ import '../styles/top.css';
 </head>
 <body class="text-text-body scroll-smooth bg-light flex flex-col min-h-screen">
 
-    <header class="bg-surface/95 backdrop-blur shadow-md fixed w-full z-50 transition-all duration-300">
-        <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-            <a href="/" class="flex flex-col justify-center">
+    <header class="header-nav">
+        <div class="section-container py-3 flex justify-between items-center">
+            <a href="/" class="header-brand">
                 <span class="text-[10px] md:text-xs text-text-muted tracking-widest mb-0.5">機械設計・電気設計・制御ソフトウェア</span>
                 <span class="text-xl md:text-2xl font-bold text-primary tracking-widest">
                     株式会社 <span class="text-accent">E</span>-クリエイト
@@ -27,51 +26,43 @@ import '../styles/top.css';
             
             <nav class="hidden xl:flex space-x-6 text-sm font-bold text-primary items-center">
                 <div class="relative group py-2">
-                    <a href="/#about" class="hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center">
-                        企業情報 <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-accent transition"></i>
-                    </a>
-                    <div class="absolute left-0 top-full mt-0 w-48 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
-                        <a href="/#about" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">会社方針</a>
-                        <a href="/#company" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">企業概要</a>
-                        <a href="/#strength" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition">選ばれる理由</a>
+                    <a href="/#about" class="nav-dropdown-trigger">企業情報</a>
+                    <div class="nav-dropdown-menu w-48">
+                        <a href="/#about" class="nav-dropdown-link">会社方針</a>
+                        <a href="/#company" class="nav-dropdown-link">企業概要</a>
+                        <a href="/#strength" class="nav-dropdown-link--last">選ばれる理由</a>
                     </div>
                 </div>
 
                 <div class="relative group py-2">
-                    <a href="/#service" class="hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center">
-                        事業内容 <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-accent transition"></i>
-                    </a>
-                    <div class="absolute left-0 top-full mt-0 w-48 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
-                        <a href="/#service" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">事業内容</a>
-                        <a href="/#works" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">開発・製作実績</a>
+                    <a href="/#service" class="nav-dropdown-trigger">事業内容</a>
+                    <div class="nav-dropdown-menu w-48">
+                        <a href="/#service" class="nav-dropdown-link">事業内容</a>
+                        <a href="/#works" class="nav-dropdown-link">開発・製作実績</a>
                         <!-- 実績一覧ページは今後追加予定 -->
-                        <!-- <a href="/works" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">実績一覧</a> -->
-                        <a href="/#workflow" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition">ご依頼の流れ</a>
+                        <!-- <a href="/works" class="nav-dropdown-link">実績一覧</a> -->
+                        <a href="/#workflow" class="nav-dropdown-link--last">ご依頼の流れ</a>
                     </div>
                 </div>
                 
                 <div class="relative group py-2">
-                    <a href="/#special" class="hover:text-accent transition border-b-2 border-transparent group-hover:border-accent flex items-center">
-                        特設・イベント <i class="fas fa-chevron-down ml-1 text-[10px] text-gray-400 group-hover:text-accent transition"></i>
-                    </a>
-                    <div class="absolute left-0 top-full mt-0 w-56 bg-surface shadow-xl rounded-b-lg border-t-2 border-accent opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform -translate-y-2 group-hover:translate-y-0 z-50 overflow-hidden">
-                        <a href="/#special" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">特設・イベント</a>
-                        <!-- リニア駅ページは今後追加予定 -->
-                        <!-- <a href="/linear" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">リニア駅建設</a> -->
-                        <a href="/infection" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition border-b border-border">感染症対策</a>
-                        <a href="/events" class="block px-4 py-3 text-sm text-primary hover:bg-light hover:text-accent transition">イベント＆お知らせ</a>
+                    <a href="/#special" class="nav-dropdown-trigger">特設・イベント</a>
+                    <div class="nav-dropdown-menu w-56">
+                        <a href="/#special" class="nav-dropdown-link">特設・イベント</a>
+                        <a href="/infection" class="nav-dropdown-link">感染症対策</a>
+                        <a href="/events" class="nav-dropdown-link--last">イベント＆お知らせ</a>
                     </div>
                 </div>
 
-                <a href="/#recruit" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">採用情報</a>
-                <a href="/#access" class="hover:text-accent transition py-2 border-b-2 border-transparent hover:border-accent">アクセス</a>
-                <a href="#contact" class="bg-accent hover:bg-accent-hover text-white px-6 py-2 rounded-full transition shadow-lg transform hover:-translate-y-0.5">
+                <a href="/#recruit" class="nav-link">採用情報</a>
+                <a href="/#access" class="nav-link">アクセス</a>
+                <a href="#contact" class="btn-primary-sm">
                     お問い合わせ
                 </a>
             </nav>
 
             <div class="xl:hidden">
-                <button id="menu-btn" type="button" class="text-primary hover:text-accent focus:outline-none p-2 transition">
+                <button id="menu-btn" type="button" class="mobile-menu-btn">
                     <svg class="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                     </svg>
@@ -79,89 +70,87 @@ import '../styles/top.css';
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden absolute top-full left-0 w-full bg-surface shadow-lg xl:hidden flex-col border-t border-border max-h-[80vh] overflow-y-auto">
-            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">企業情報</div>
-            <a href="/#about" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">会社方針</a>
-            <a href="/#company" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">企業概要</a>
-            <a href="/#strength" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">選ばれる理由</a>
+        <div id="mobile-menu" class="mobile-menu">
+            <div class="mobile-menu-heading">企業情報</div>
+            <a href="/#about" class="mobile-menu-link">会社方針</a>
+            <a href="/#company" class="mobile-menu-link">企業概要</a>
+            <a href="/#strength" class="mobile-menu-link">選ばれる理由</a>
             
-            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">事業内容</div>
-            <a href="/#service" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">事業内容</a>
-            <a href="/#works" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">開発・製作実績</a>
-            <!-- <a href="/works" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">実績一覧</a> -->
-            <a href="/#workflow" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">ご依頼の流れ</a>
+            <div class="mobile-menu-heading">事業内容</div>
+            <a href="/#service" class="mobile-menu-link">事業内容</a>
+            <a href="/#works" class="mobile-menu-link">開発・製作実績</a>
+            <!-- <a href="/works" class="mobile-menu-link">実績一覧</a> -->
+            <a href="/#workflow" class="mobile-menu-link">ご依頼の流れ</a>
             
-            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">特設・イベント</div>
-            <a href="/#special" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">特設・イベント</a>
-            <!-- <a href="/linear" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">リニア駅建設</a> -->
-            <a href="/infection" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">感染症対策</a>
-            <a href="/events" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">イベント＆お知らせ</a>
+            <div class="mobile-menu-heading">特設・イベント</div>
+            <a href="/#special" class="mobile-menu-link">特設・イベント</a>
+            <a href="/infection" class="mobile-menu-link">感染症対策</a>
+            <a href="/events" class="mobile-menu-link">イベント＆お知らせ</a>
             
-            <div class="border-b border-border bg-light/50 font-bold text-sm px-4 py-2 text-gray-500">その他</div>
-            <a href="/#recruit" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">採用情報</a>
-            <a href="/#access" class="block py-3 pl-8 pr-4 text-primary font-bold hover:bg-light border-b border-border transition">アクセス</a>
-            <a href="#contact" class="block py-4 px-4 bg-light text-center text-accent font-bold transition">お問い合わせ</a>
+            <div class="mobile-menu-heading">その他</div>
+            <a href="/#recruit" class="mobile-menu-link">採用情報</a>
+            <a href="/#access" class="mobile-menu-link">アクセス</a>
+            <a href="#contact" class="mobile-menu-link--last">お問い合わせ</a>
         </div>
     </header>
 
     <slot />
 
     <footer class="bg-primary text-text-muted py-16 border-t border-primary">
-        <div class="container mx-auto px-4">
+        <div class="section-container">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-12 mb-12">
                 
                 <div class="md:col-span-1">
-                    <h3 class="text-2xl font-bold text-white mb-6">株式会社 E-クリエイト</h3>
-                    <p class="text-sm leading-relaxed text-surface-alt mb-4">
+                    <h3 class="text-2xl font-bold text-text-inverse mb-6">株式会社 E-クリエイト</h3>
+                    <p class="footer-text mb-4">
                         〒400-0057<br>
                         山梨県甲府市高室町688-2<br>
                         (株式会社 新二ホンテック内)
                     </p>
-                    <p class="text-sm text-surface-alt font-mono">
+                    <p class="footer-text font-mono">
                         TEL: 055-241-9231<br>
                         FAX: 055-241-9223
                     </p>
                 </div>
 
                 <div class="md:col-span-2">
-                    <h4 class="text-white font-bold mb-6 tracking-widest border-b border-white/20 pb-2">サイトマップ</h4>
+                    <h4 class="footer-heading">サイトマップ</h4>
                     <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-sm">
-
                         <ul class="space-y-3">
-                            <li><a href="/#about" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>会社方針</a></li>
-                            <li><a href="/#company" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>企業概要</a></li>
-                            <li><a href="/#strength" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>選ばれる理由</a></li>
+                            <li><a href="/#about" class="footer-link">会社方針</a></li>
+                            <li><a href="/#company" class="footer-link">企業概要</a></li>
+                            <li><a href="/#strength" class="footer-link">選ばれる理由</a></li>
                         </ul>
                         <ul class="space-y-3">
-                            <li><a href="/#service" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>事業内容</a></li>
-                            <li><a href="/#works" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>開発・製作実績</a></li>
-                            <li><a href="/#workflow" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>ご依頼の流れ</a></li>
+                            <li><a href="/#service" class="footer-link">事業内容</a></li>
+                            <li><a href="/#works" class="footer-link">開発・製作実績</a></li>
+                            <!-- <li><a href="/works" class="footer-link">実績一覧</a></li> -->
+                            <li><a href="/#workflow" class="footer-link">ご依頼の流れ</a></li>
                         </ul>
                         <ul class="space-y-3">
-                            <li><a href="/#special" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>特設・イベント</a></li>
-                            <li><a href="/infection" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>感染症対策</a></li>
-                            <li><a href="/events" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>イベント＆お知らせ</a></li>
-                            <li><a href="/#recruit" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>採用情報</a></li>
-                            <li><a href="/#access" class="hover:text-white transition flex items-center"><i class="fas fa-chevron-right text-[10px] text-accent mr-2"></i>アクセス</a></li>
+                            <li><a href="/#special" class="footer-link">特設・イベント</a></li>
+                            <li><a href="/infection" class="footer-link">感染症対策</a></li>
+                            <li><a href="/events" class="footer-link">イベント＆お知らせ</a></li>
+                            <li><a href="/#recruit" class="footer-link">採用情報</a></li>
+                            <li><a href="/#access" class="footer-link">アクセス</a></li>
                         </ul>
-
                     </div>
                 </div>
 
                 <div class="md:col-span-1 flex flex-col justify-between">
                     <div>
-                        <h4 class="text-white font-bold mb-6 tracking-widest border-b border-white/20 pb-2">関連リンク</h4>
-                        <a href="https://www.shinnihontec.co.jp/" target="_blank" rel="noopener noreferrer" class="group flex items-center p-4 bg-white/5 rounded-lg border border-white/10 hover:bg-white/10 transition shadow-lg">
+                        <h4 class="footer-heading">関連リンク</h4>
+                        <a href="https://www.shinnihontec.co.jp/" target="_blank" rel="noopener noreferrer" class="card--transparent group">
                             <i class="fas fa-building text-text-muted group-hover:text-white mr-4 text-xl"></i>
                             <div>
                                 <span class="block text-[10px] text-accent mb-0.5 font-bold tracking-wider">グループ会社</span>
-                                <span class="block text-sm text-white font-bold">株式会社 新ニホンテック</span>
+                                <span class="block text-sm text-text-inverse font-bold">株式会社 新ニホンテック</span>
                             </div>
                         </a>
                     </div>
                     
                     <div class="text-right mt-8">
-                        <a href="/" class="inline-flex items-center justify-center bg-white/10 hover:bg-white/20 text-white px-6 py-3 rounded-full transition border border-white/10 text-sm font-bold w-full md:w-auto">
+                        <a href="/" class="btn-transparent w-full md:w-auto">
                             <i class="fas fa-arrow-up mr-2"></i> ページトップへ
                         </a>
                     </div>
@@ -169,7 +158,7 @@ import '../styles/top.css';
 
             </div>
             
-            <div class="pt-8 border-t border-white/10 text-center text-sm">
+            <div class="footer-copyright">
                 <p>© E-CREATE CO., LTD. All Rights Reserved.</p>
             </div>
         </div>

@@ -28,19 +28,19 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
 
 <Layout title="イベント＆お知らせ | 株式会社 新ニホンテック">
     <div class="pt-24 pb-20 bg-surface-alt min-h-screen">
-        <div class="container mx-auto px-4 max-w-4xl">
+        <div class="section-container max-w-4xl">
             
             <!-- パンくずリスト -->
-            <div class="text-sm text-text-muted mb-8">
-                <a href="/" class="hover:text-accent transition">トップ</a> &rsaquo;
-                <span class="text-primary font-bold">イベント＆お知らせ</span>
-            </div>
+            <nav class="breadcrumb">
+                <a href="/">トップ</a>
+                <span>イベント＆お知らせ</span>
+            </nav>
 
             <!-- タイトル -->
-            <div class="text-center mb-12 md:mb-20">
-                <span class="text-accent font-eng tracking-widest text-sm md:text-base font-bold block mb-2 uppercase">Events & Announcements</span>
-                <h1 class="text-3xl md:text-4xl font-bold text-primary mb-4 tracking-wider">イベント＆お知らせ</h1>
-                <div class="w-12 h-1 bg-accent mx-auto"></div>
+            <div class="section-header mb-12 md:mb-20">
+                <span class="section-eyebrow">Events & Announcements</span>
+                <h1 class="section-title tracking-wider">イベント＆お知らせ</h1>
+                <div class="section-divider"></div>
             </div>
 
             <div class="bg-surface rounded-xl shadow-lg p-6 md:p-10">
@@ -66,7 +66,7 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
 
                         return hasLink ? (
                             <a href={`/events/${event.id}`} class="event-item block p-4 border border-border rounded-lg hover:shadow-md transition group bg-white" data-tags={tagsString}>
-                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                                <div class="event-meta mb-2 md:flex-row md:items-center gap-2">
                                     <span class="text-sm text-text-muted w-24 shrink-0">{new Date(event.date).toLocaleDateString("ja-JP")}</span>
                                     <div class="flex flex-wrap gap-1">
                                         {event.tags && event.tags.map(tag => (
@@ -80,7 +80,7 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
                             </a>
                         ) : (
                             <div class="event-item block p-4 border border-border rounded-lg bg-surface-alt" data-tags={tagsString}>
-                                <div class="flex flex-col md:flex-row md:items-center gap-2 mb-2">
+                                <div class="event-meta mb-2 md:flex-row md:items-center gap-2">
                                     <span class="text-sm text-text-muted w-24 shrink-0">{new Date(event.date).toLocaleDateString("ja-JP")}</span>
                                     <div class="flex flex-wrap gap-1">
                                         {event.tags && event.tags.map(tag => (
@@ -102,7 +102,7 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
             </div>
 
             <div class="mt-16 md:mt-20 text-center">
-                <a href="/" class="inline-block bg-white border border-border text-primary font-bold py-3 px-8 rounded-full hover:bg-surface-alt transition shadow-sm hover:shadow-md hover:-translate-y-0.5">
+                <a href="/" class="btn-back">
                     トップページへ戻る
                 </a>
             </div>
@@ -113,89 +113,4 @@ const linkableTags = ["記念式典", "社内行事", "アーカイブ"];
 
 </Layout>
 
-<script is:inline>
-document.addEventListener('DOMContentLoaded', () => {
-    const ITEMS_PER_PAGE = 10; // 1ページあたりの表示件数
-    let currentPage = 1;
-    let currentFilter = 'all';
-
-    const items = Array.from(document.querySelectorAll('.event-item'));
-    const filterBtns = document.querySelectorAll('.filter-btn');
-    const paginationContainer = document.getElementById('pagination');
-    const eventListContainer = document.getElementById('event-list');
-
-    // リストの描画処理
-    function render() {
-        // 1. フィルターで対象アイテムを絞り込む
-        const filteredItems = items.filter(item => {
-            if (currentFilter === 'all') return true;
-            const tags = item.getAttribute('data-tags').split(',');
-            return tags.includes(currentFilter);
-        });
-
-        // 2. ページネーションの計算
-        const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
-        if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
-
-        const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
-        const endIndex = startIndex + ITEMS_PER_PAGE;
-
-        // 3. 全アイテムを一度非表示にし、該当ページのアイテムだけ表示する
-        items.forEach(item => item.style.display = 'none');
-        filteredItems.slice(startIndex, endIndex).forEach(item => {
-            item.style.display = 'block';
-        });
-
-        // 4. ページネーションボタンの生成
-        renderPagination(totalPages);
-    }
-
-    // ページネーションボタンの生成
-    function renderPagination(totalPages) {
-        paginationContainer.innerHTML = '';
-
-        if (totalPages <= 1) return; // 1ページしかない場合は非表示
-
-        for (let i = 1; i <= totalPages; i++) {
-            const btn = document.createElement('button');
-            btn.textContent = i;
-            // 現在のページは赤（アクセントカラー）、それ以外はグレー
-            if (i === currentPage) {
-                btn.className = 'w-10 h-10 rounded-full flex items-center justify-center font-bold bg-accent text-white shadow-md';
-            } else {
-                btn.className = 'w-10 h-10 rounded-full flex items-center justify-center font-bold bg-surface-alt text-primary hover:bg-gray-200 border border-border transition cursor-pointer';
-            }
-            
-            btn.addEventListener('click', () => {
-                currentPage = i;
-                render();
-                // ページ切り替え時にリストの一番上にスクロール
-                window.scrollTo({ top: eventListContainer.offsetTop - 100, behavior: 'smooth' });
-            });
-
-            paginationContainer.appendChild(btn);
-        }
-    }
-
-    // フィルターボタンのクリックイベント
-    filterBtns.forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            // ボタンのデザインを切り替え
-            filterBtns.forEach(b => {
-                b.classList.remove('bg-primary', 'text-white', 'shadow-md');
-                b.classList.add('bg-surface-alt', 'text-primary');
-            });
-            e.currentTarget.classList.remove('bg-surface-alt', 'text-primary');
-            e.currentTarget.classList.add('bg-primary', 'text-white', 'shadow-md');
-
-            // フィルターを適用して1ページ目に戻る
-            currentFilter = e.currentTarget.getAttribute('data-tag');
-            currentPage = 1;
-            render();
-        });
-    });
-
-    // 初回レンダリング
-    render();
-});
-</script>
+<script src="/assets/js/events-list.js" is:inline></script>

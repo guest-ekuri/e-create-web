@@ -1,0 +1,95 @@
+/* ================================================
+   gallery.css
+   [id].astro（イベント詳細ページ）専用スタイル
+
+   ※ @reference ではなく @import "tailwindcss" を使う。
+      @reference は common.css の @layer を再処理する
+      副作用があり、既存スタイルの競合を引き起こすため。
+   ================================================ */
+@import "tailwindcss";
+
+@layer components {
+
+  /* ========================================
+     ギャラリー 下部バー
+     （スライダー・ライトボックス共通の
+       「タイトル／ドット／ボタン」3カラムバー）
+     ======================================== */
+
+  /* バー全体のラッパー（グラデーション背景付き） */
+  .gallery-bar {
+    @apply absolute bottom-0 left-0 w-full
+           bg-gradient-to-t from-black/80 to-transparent
+           px-4 pb-4 pt-10 z-20;
+  }
+
+  /* バー内の3カラム flex レイアウト */
+  .gallery-bar__inner {
+    @apply flex items-center justify-between gap-2;
+  }
+
+  /* 左：タイトルエリア（flex-1 で余白を均等に取る） */
+  .gallery-bar__title {
+    @apply flex-1 min-w-0;
+  }
+
+  /* タイトルテキスト */
+  .gallery-bar__title-text {
+    @apply text-white font-bold text-sm md:text-base truncate;
+  }
+
+  /* 中央：ドットエリア（縮まないように flex-shrink-0） */
+  .gallery-bar__dots {
+    @apply flex items-center space-x-2 flex-shrink-0;
+  }
+
+  /* 右：ボタンエリア（flex-1 + justify-end で右寄せ）
+     ライトボックス側はスペーサーとして中身なしで使用 */
+  .gallery-bar__action {
+    @apply flex-1 flex justify-end;
+  }
+
+
+  /* ========================================
+     ライトボックス
+     ======================================== */
+
+  /* オーバーレイ全体 */
+  .lightbox {
+    @apply fixed inset-0 bg-black/95 z-[100] flex-col;
+  }
+
+  /* 閉じるボタン（右上固定） */
+  .lightbox__close {
+    @apply absolute top-4 right-4
+           w-11 h-11 flex items-center justify-center
+           bg-white/20 hover:bg-white/40
+           text-white rounded-full transition z-10;
+  }
+
+  /* 画像表示エリア */
+  .lightbox__image-area {
+    @apply relative w-full h-full flex items-center justify-center px-16 py-20;
+  }
+
+  /* 画像本体 */
+  .lightbox__img {
+    @apply max-w-full max-h-full object-contain rounded shadow-2xl select-none;
+  }
+
+  /* 前へ・次へボタン（位置は left-3 / right-3 を直書きで使い分け） */
+  .lightbox__nav {
+    @apply absolute top-1/2 -translate-y-1/2
+           w-12 h-12 flex items-center justify-center
+           bg-white/20 hover:bg-white/40
+           text-white rounded-full transition z-10;
+  }
+
+  /* 下部バー（ライトボックス版） */
+  .lightbox__bar {
+    @apply absolute bottom-0 left-0 w-full
+           px-6 pb-6 pt-10
+           bg-gradient-to-t from-black/70 to-transparent z-10;
+  }
+
+}
