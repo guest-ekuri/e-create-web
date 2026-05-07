@@ -259,7 +259,7 @@ footer a {
 
   /* ヘッダーのロゴ（ブランド）リンク */
   .header-brand {
-    @apply text-xl md:text-2xl font-bold text-primary flex items-center leading-none;
+    @apply text-primary flex flex-col justify-center leading-none;
   }
 
   /* ドロップダウンを持たない通常のリンク */
