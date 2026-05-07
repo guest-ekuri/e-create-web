@@ -35,6 +35,22 @@
 }
 
 
+/* --- トップページ専用スタイル --- */
+.hero-bg {
+    background-image: url('/assets/images/image1.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* パソコン画面のみ背景を固定してパララックス風にする */
+@media (min-width: 768px) {
+    .hero-bg {
+        background-attachment: fixed;
+    }
+}
+
+
 /* --- 2. Tailwindに独自カラーを教える --- */
 @theme {
   --color-primary: var(--theme-primary);
